@@ -74,7 +74,7 @@ describe("TaskAdder", () => {
   it("is focused on load", () => {
     cy.visit("http://localhost:3000");
 
-    cy.focused().should("have.class", "task-adder")
+    cy.focused().should("have.class", "new-task")
   })
 })
 ```
@@ -100,8 +100,8 @@ it.only("accepts input", () => {
 })
 ```
 
-refactor so that `const typedInput = "Get a kitten";`.
-Now, we need to make it a controlled input.
+- refactor so that `const typedInput = "Get a kitten";`.
+- Now, we need to make it a controlled input.
 
 ```
 context("Form submission", () => {
@@ -179,7 +179,7 @@ describe("App initialisation", () => {
 ```
 
 - That data might be useful later, so we can put store it in "./cypress/fixtures/tasks.json"
-- Then, replace any references to `tasks` with a string: "fixtures:tasks"
+- Then, replace any references to `tasks` with a string: "fixture:tasks"
 
 - The first part of this test (populating our app) seems like something that we would want to repeat, so we can make a custom cypress command.
   - Go to "./cypress/support/commands.js" and add:
@@ -187,7 +187,7 @@ describe("App initialisation", () => {
 ```
 Cypress.Commands.add("seedAndVisit", () => {
   cy.server();
-  cy.route("GET", "/api/tasks", tasks);
+  cy.route("GET", "/api/tasks", "fixture:tasks");
   cy.visit("/");
 });
 ```
